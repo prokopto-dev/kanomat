@@ -1,5 +1,3 @@
-
-
 class ChessBoard {
     board: (string | null)[][];
 
@@ -34,8 +32,12 @@ class ChessBoard {
 
     movePiece(fromRow, fromCol, toRow, toCol) {
         const piece = this.getPiece(fromRow, fromCol);
-        this.setPiece(fromRow, fromCol, null);
-        this.setPiece(toRow, toCol, piece);
+        const targetPiece = this.getPiece(toRow, toCol);
+        if (targetPiece) {
+            // capture
+            this.setPiece(fromRow, fromCol, null);
+            this.setPiece(toRow, toCol, piece);
+        }
     }
 
     resetBoard() {
