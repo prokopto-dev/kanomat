@@ -29,6 +29,8 @@ export class ChessBoard {
 
     setupRender() : void {
         this.board_render.style.display = 'grid';
+        this.board_render.style.width = `${this.square * 8}px`;
+        this.board_render.style.height = `${this.square * 8}px`;
         this.board_render.style.gridTemplateColumns = `repeat(8, ${this.square}px)`;
         this.board_render.style.gridTemplateRows = `repeat(8, ${this.square}px)`;
         this.board_render.style.gap = '0px';
@@ -133,6 +135,12 @@ export class ChessBoard {
             let position = this.getBoardPosition(piece[2]);
             this.board[position.row][position.column] = new ChessPiece(piece[0], piece[1], piece[2]);
         }
+        // Loop through the white pieces and add them to the board
+        for (let i = 0; i < whitepieces.length; i++) {
+            let piece = whitepieces[i];
+            let position = this.getBoardPosition(piece[2]);
+            this.board[position.row][position.column] = new ChessPiece(piece[0], piece[1], piece[2]);
+        }
     }
 
     isSquareBlack(column: number, row: number) : boolean {
@@ -151,11 +159,13 @@ export class ChessBoard {
                 square.style.width = this.square + 'px';
                 square.style.height = this.square + 'px';
                 square.style.textAlign = 'center';
+                square.style.display = 'flex';
+                square.style.justifyContent = 'center';
+                square.style.alignItems = 'center';
                 square.style.lineHeight = this.square + 'px';
                 square.style.fontSize = this.getPieceSize() + 'px';
                 square.style.color = this.isSquareBlack(i, j) ? 'black' : 'white';
                 square.style.backgroundColor = this.isSquareBlack(i, j) ? 'black' : 'white';
-                square.style.border = '1px solid black';
                 if (this.board[j][i]) {
                     let piece = document.createElement('div');
                     piece.style.display = 'flex';
@@ -166,7 +176,7 @@ export class ChessBoard {
                     piece.textContent = this.board[j][i].getSymbol();
                     piece.style.color = this.board[j][i].color;
                     piece.style.backgroundColor = 'transparent';
-                    piece.style.webkitTextStroke = '1px ' + this.isSquareBlack(i, j) ? 'white' : 'black';
+                    piece.style.webkitTextStroke = '1px ' + (this.isSquareBlack(i, j) ? 'white' : 'black');
                     square.appendChild(piece);           
                 }
                 this.board_render.appendChild(square);

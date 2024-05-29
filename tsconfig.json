@@ -1,5 +1,8 @@
 {
-"compilerOptions": {
-    "jsx": "react"
-  }
+    "compilerOptions": {
+        "noImplicitAny": true,
+        "target": "ES5",
+        "module": "ES2015",
+        "jsx": "react"
+    }
 }
